@@ -34,6 +34,8 @@ import com.baidu.hugegraph.util.E;
 public abstract class BackendEntryIterator
                 implements Iterator<BackendEntry>, AutoCloseable, Metadatable {
 
+    public static final long INLINE_BATCH_SIZE = Query.COMMIT_BATCH;
+
     protected final Query query;
 
     protected BackendEntry current;
