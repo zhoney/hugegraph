@@ -103,10 +103,15 @@ public class ApplicationConfig extends ResourceConfig {
             register(new ApplicationEventListener() {
                 private final ApplicationEvent.Type EVENT_INITED =
                               ApplicationEvent.Type.INITIALIZATION_FINISHED;
+                private final ApplicationEvent.Type EVENT_DESTROIED =
+                              ApplicationEvent.Type.DESTROY_FINISHED;
+
                 @Override
                 public void onEvent(ApplicationEvent event) {
                     if (event.getType() == this.EVENT_INITED) {
                         manager = new GraphManager(conf, hub);
+                    } else if (event.getType() == this.EVENT_DESTROIED) {
+                        manager.destroy();
                     }
                 }
 

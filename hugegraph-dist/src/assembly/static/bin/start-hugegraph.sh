@@ -55,6 +55,8 @@ REST_SERVER_URL=`read_property "$CONF/rest-server.properties" "restserver.url"`
 check_port "$GREMLIN_SERVER_URL"
 check_port "$REST_SERVER_URL"
 
+mkdir -p ${LOGS}
+
 echo "Starting HugeGraphServer..."
 
 ${BIN}/hugegraph-server.sh ${CONF}/gremlin-server.yaml ${CONF}/rest-server.properties \
