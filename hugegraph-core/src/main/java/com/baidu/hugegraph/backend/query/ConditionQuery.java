@@ -43,7 +43,7 @@ import com.baidu.hugegraph.util.LongEncoding;
 import com.baidu.hugegraph.util.NumericUtil;
 import com.google.common.base.Function;
 
-public final class ConditionQuery extends IdQuery {
+public class ConditionQuery extends IdQuery {
 
     // Conditions will be concated with `and` by default
     private Set<Condition> conditions = new LinkedHashSet<>();
@@ -165,8 +165,7 @@ public final class ConditionQuery extends IdQuery {
         for (Iterator<Condition> iter = this.conditions.iterator();
              iter.hasNext();) {
             Condition c = iter.next();
-            E.checkState(c.isRelation(), "Can't unset condition '%s'", c);
-            if (((Condition.Relation) c).key().equals(key)) {
+            if (c.isRelation() && ((Condition.Relation) c).key().equals(key)) {
                 iter.remove();
             }
         }
