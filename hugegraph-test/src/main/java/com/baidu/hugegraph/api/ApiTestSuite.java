@@ -40,7 +40,17 @@ import com.baidu.hugegraph.dist.RegisterUtil;
     AllShortestPathsAPITest.class,
     CountAPITest.class,
     CrosspointsAPITest.class,
-    CustomizedCrosspointsAPITest.class
+    CustomizedCrosspointsAPITest.class,
+    EdgesAPITest.class,
+    FusiformSimilarityAPITest.class,
+    JaccardSimilarityAPITest.class,
+    KneighborAPITest.class,
+    KoutAPITest.class,
+    MultiNodeShortestPathAPITest.class,
+    NeighborRankAPITest.class,
+    PathsAPITest.class,
+    PersonalRankAPITest.class,
+    RaysAPITest.class
 })
 public class ApiTestSuite {
 
