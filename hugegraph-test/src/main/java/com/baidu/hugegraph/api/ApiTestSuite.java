@@ -36,21 +36,7 @@ import com.baidu.hugegraph.dist.RegisterUtil;
     TaskApiTest.class,
     GremlinApiTest.class,
     MetricsApiTest.class,
-    UserApiTest.class,
-    AllShortestPathsAPITest.class,
-    CountAPITest.class,
-    CrosspointsAPITest.class,
-    CustomizedCrosspointsAPITest.class,
-    EdgesAPITest.class,
-    FusiformSimilarityAPITest.class,
-    JaccardSimilarityAPITest.class,
-    KneighborAPITest.class,
-    KoutAPITest.class,
-    MultiNodeShortestPathAPITest.class,
-    NeighborRankAPITest.class,
-    PathsAPITest.class,
-    PersonalRankAPITest.class,
-    RaysAPITest.class
+    UserApiTest.class
 })
 public class ApiTestSuite {
 
