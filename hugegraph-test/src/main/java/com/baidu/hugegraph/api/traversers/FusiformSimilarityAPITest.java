@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.baidu.hugegraph.api.BaseApiTest;
 
-public class FusiformSimilarityAPITest extends BaseApiTest {
+public class FusiformSimilarityApiTest extends BaseApiTest {
 
     final static String path = "graphs/hugegraph/traversers/fusiformsimilarity";
 

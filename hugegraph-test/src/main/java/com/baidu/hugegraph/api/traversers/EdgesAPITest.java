@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 
 
-public class EdgesAPITest extends BaseApiTest {
+public class EdgesApiTest extends BaseApiTest {
 
     final static String EDGE_PATH = "graphs/hugegraph/traversers/edges";
     final static String SHARES_PATH = "graphs/hugegraph/traversers"

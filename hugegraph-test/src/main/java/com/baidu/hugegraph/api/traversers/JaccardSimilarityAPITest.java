@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.baidu.hugegraph.api.BaseApiTest;
 import com.google.common.collect.ImmutableMap;
 
-public class JaccardSimilarityAPITest extends BaseApiTest {
+public class JaccardSimilarityApiTest extends BaseApiTest {
 
     final static String path = "graphs/hugegraph/traversers/jaccardsimilarity";
 

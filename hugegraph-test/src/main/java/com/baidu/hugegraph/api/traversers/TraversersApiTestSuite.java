@@ -8,25 +8,25 @@ import com.baidu.hugegraph.dist.RegisterUtil;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AllShortestPathsAPITest.class,
-    CountAPITest.class,
-    CrosspointsAPITest.class,
-    CustomizedCrosspointsAPITest.class,
-    EdgesAPITest.class,
-    FusiformSimilarityAPITest.class,
-    JaccardSimilarityAPITest.class,
-    KneighborAPITest.class,
-    KoutAPITest.class,
-    MultiNodeShortestPathAPITest.class,
-    NeighborRankAPITest.class,
-    PathsAPITest.class,
-    PersonalRankAPITest.class,
-    RaysAPITest.class,
-    RingsAPITest.class,
-    SameNeighborsAPITest.class,
-    ShortestPathAPITest.class,
-    SingleSourceShortestPathAPITest.class,
-    TemplatePathsAPITest.class
+    AllShortestPathsApiTest.class,
+    CountApiTest.class,
+    CrosspointsApiTest.class,
+    CustomizedCrosspointsApiTest.class,
+    EdgesApiTest.class,
+    FusiformSimilarityApiTest.class,
+    JaccardSimilarityApiTest.class,
+    KneighborApiTest.class,
+    KoutApiTest.class,
+    MultiNodeShortestPathApiTest.class,
+    NeighborRankApiTest.class,
+    PathsApiTest.class,
+    PersonalRankApiTest.class,
+    RaysApiTest.class,
+    RingsApiTest.class,
+    SameNeighborsApiTest.class,
+    ShortestPathApiTest.class,
+    SingleSourceShortestPathApiTest.class,
+    TemplatePathsApiTest.class
 })
 public class TraversersApiTestSuite {
 

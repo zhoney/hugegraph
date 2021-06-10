@@ -1,6 +1,6 @@
 package com.baidu.hugegraph.api.traversers;
 
-import static com.baidu.hugegraph.testutil.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,9 @@ import org.junit.Test;
 import com.baidu.hugegraph.api.BaseApiTest;
 import com.google.common.collect.ImmutableMap;
 
-public class CrosspointsApiTest extends BaseApiTest {
+public class RingsApiTest extends BaseApiTest {
 
-    public static String path = "graphs/hugegraph/traversers/crosspoints";
+    final static String path = "graphs/hugegraph/traversers/rings";
 
     @Before
     public void prepareSchema() {
@@ -30,16 +30,13 @@ public class CrosspointsApiTest extends BaseApiTest {
     public void testGet() {
         Map<String, String> name2Ids = listAllVertexName2Ids();
         String markoId = name2Ids.get("marko");
-        String vadasId = name2Ids.get("vadas");
         Map<String, Object> params = ImmutableMap.of("source",
                                                      id2Json(markoId),
-                                                     "target",
-                                                     id2Json(vadasId),
-                                                     "max_depth", 1000);
+                                                     "max_depth", 10);
         Response r = client().get(path, params);
-        String respBody = assertResponseStatus(200, r);
-        List<Map<String, Object>> crosspoints = assertJsonContains(respBody,
-                                                                   "crosspoints");
-        assertEquals(2, crosspoints.size());
+        String respJson = assertResponseStatus(200, r);
+        List<Map<String, List<String>>> rings = assertJsonContains(respJson,
+                                                                   "rings");
+        assertFalse(rings.isEmpty());
     }
 }

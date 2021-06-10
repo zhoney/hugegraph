@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.baidu.hugegraph.api.BaseApiTest;
 
-public class CustomizedCrosspointsAPITest extends BaseApiTest {
+public class CustomizedCrosspointsApiTest extends BaseApiTest {
 
     public static String path = "graphs/hugegraph/traversers/customizedcrosspoints";
 

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.baidu.hugegraph.api.BaseApiTest;
 
-public class CountAPITest extends BaseApiTest {
+public class CountApiTest extends BaseApiTest {
 
     public static String path = "graphs/hugegraph/traversers/count";
 
