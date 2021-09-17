@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.baidu.hugegraph</groupId>
         <artifactId>hugegraph</artifactId>
-        <version>0.13.0</version>
+        <version>0.14.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hugegraph-core</artifactId>
@@ -264,7 +264,11 @@
                             </addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
+<<<<<<< HEAD
                             <Implementation-Version>0.13.0.0</Implementation-Version>
+=======
+                            <Implementation-Version>0.12.1.0</Implementation-Version>
+>>>>>>> 0b8e97f9c... upgrade tinkerpop version from 3.4.3 to 3.4.12
                         </manifestEntries>
                     </archive>
                 </configuration>

@@ -430,7 +430,8 @@ public abstract class HugeElement implements Element, GraphType, Idfiable {
                       .providedKeyValuesMustHaveALegalKeyOnEvenIndices();
             }
             if (val == null) {
-                throw Property.Exceptions.propertyValueCanNotBeNull();
+                throw new IllegalArgumentException(
+                          "Property value can't be null");
             }
 
             if (key.equals(T.id)) {
