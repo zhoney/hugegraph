@@ -28,6 +28,42 @@ public class Text {
         return ConditionP.textContains(value);
     }
 
+    public static ConditionP notContains(String value) {
+        return ConditionP.textNotContains(value);
+    }
+
+    public static ConditionP prefix(String value) {
+        return ConditionP.prefix(value);
+    }
+
+    public static ConditionP notPrefix(String value) {
+        return ConditionP.notPrefix(value);
+    }
+
+    public static ConditionP suffix(String value) {
+        return ConditionP.suffix(value);
+    }
+
+    public static ConditionP notSuffix(String value) {
+        return ConditionP.notSuffix(value);
+    }
+
+    public static ConditionP containsFuzzy(String value) {
+        return ConditionP.containsFuzzy(value);
+    }
+
+    public static ConditionP containsRegex(String value) {
+        return ConditionP.containsRegex(value);
+    }
+
+    public static ConditionP fuzzy(String value) {
+        return ConditionP.fuzzy(value);
+    }
+
+    public static ConditionP regex(String value) {
+        return ConditionP.regex(value);
+    }
+
     public static Id uuid(String id) {
         return IdGenerator.of(id, true);
     }
