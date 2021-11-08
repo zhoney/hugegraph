@@ -25,11 +25,11 @@ import org.apache.cassandra.tools.NodeProbe;
 
 import com.baidu.hugegraph.backend.store.cassandra.CassandraMetrics;
 import com.baidu.hugegraph.backend.store.cassandra.CassandraSessionPool;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 
 public class ScyllaDBMetrics extends CassandraMetrics {
 
-    public ScyllaDBMetrics(HugeConfig conf,
+    public ScyllaDBMetrics(HugeConfig2 conf,
                            CassandraSessionPool sessions,
                            String keyspace) {
         super(conf, sessions, keyspace);

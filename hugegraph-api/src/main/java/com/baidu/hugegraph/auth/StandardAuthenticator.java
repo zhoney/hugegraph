@@ -27,7 +27,7 @@ import com.baidu.hugegraph.meta.MetaManager;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.E;
 
 public class StandardAuthenticator implements HugeAuthenticator {
@@ -37,7 +37,7 @@ public class StandardAuthenticator implements HugeAuthenticator {
     private AuthManager authManager = null;
 
     @Override
-    public void setup(HugeConfig config) {
+    public void setup(HugeConfig2 config) {
         String cluster = config.get(ServerOptions.CLUSTER);
         List<String> endpoints = config.get(ServerOptions.META_ENDPOINTS);
         MetaManager metaManager = MetaManager.instance();
@@ -95,7 +95,7 @@ public class StandardAuthenticator implements HugeAuthenticator {
 
     public static void initAdminUserIfNeeded(String confFile) throws Exception {
         MetaManager metaManager = MetaManager.instance();
-        HugeConfig config = new HugeConfig(confFile);
+        HugeConfig2 config = new HugeConfig2(confFile);
         String authClass = config.get(ServerOptions.AUTHENTICATOR);
         if (authClass.isEmpty()) {
             return;

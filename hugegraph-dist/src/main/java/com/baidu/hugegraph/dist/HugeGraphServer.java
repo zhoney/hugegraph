@@ -51,7 +51,6 @@ public class HugeGraphServer {
         System.setSecurityManager(null);
 
         EventHub hub = new EventHub("gremlin=>hub<=rest");
-        ConfigUtil.checkGremlinConfig(gremlinServerConf);
         HugeConfig restServerConfig = new HugeConfig(restServerConf);
         String graphsDir = null;
         if (restServerConfig.get(ServerOptions.GRAPH_LOAD_FROM_LOCAL_CONFIG)) {

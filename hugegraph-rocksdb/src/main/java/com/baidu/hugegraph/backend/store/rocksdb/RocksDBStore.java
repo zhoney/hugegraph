@@ -63,7 +63,7 @@ import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.BackendTable;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBSessions.Session;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.ConnectionException;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.Consumers;
@@ -212,7 +212,7 @@ public abstract class RocksDBStore extends AbstractBackendStore<Session> {
     }
 
     @Override
-    public synchronized void open(HugeConfig config) {
+    public synchronized void open(HugeConfig2 config) {
         LOG.debug("Store open: {}", this.store);
 
         E.checkNotNull(config, "config");
@@ -297,13 +297,14 @@ public abstract class RocksDBStore extends AbstractBackendStore<Session> {
         openPool.shutdownNow();
     }
 
-    protected RocksDBSessions open(HugeConfig config, List<String> tableNames) {
+    protected RocksDBSessions open(HugeConfig2 config,
+                                   List<String> tableNames) {
         String dataPath = this.wrapPath(config.get(RocksDBOptions.DATA_PATH));
         String walPath = this.wrapPath(config.get(RocksDBOptions.WAL_PATH));
         return this.open(config, dataPath, walPath, tableNames);
     }
 
-    protected RocksDBSessions open(HugeConfig config, String dataPath,
+    protected RocksDBSessions open(HugeConfig2 config, String dataPath,
                                    String walPath, List<String> tableNames) {
         LOG.info("Opening RocksDB with data path: {}", dataPath);
 
@@ -372,7 +373,7 @@ public abstract class RocksDBStore extends AbstractBackendStore<Session> {
         return sessions;
     }
 
-    protected RocksDBSessions openSessionPool(HugeConfig config,
+    protected RocksDBSessions openSessionPool(HugeConfig2 config,
                                               String dataPath, String walPath,
                                               List<String> tableNames)
                                               throws RocksDBException {

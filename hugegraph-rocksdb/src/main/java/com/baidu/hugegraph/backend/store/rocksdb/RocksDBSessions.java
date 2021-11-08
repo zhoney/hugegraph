@@ -28,11 +28,11 @@ import org.rocksdb.RocksDBException;
 import com.baidu.hugegraph.backend.store.BackendEntry.BackendColumnIterator;
 import com.baidu.hugegraph.backend.store.BackendSession.AbstractBackendSession;
 import com.baidu.hugegraph.backend.store.BackendSessionPool;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 
 public abstract class RocksDBSessions extends BackendSessionPool {
 
-    public RocksDBSessions(HugeConfig config, String database, String store) {
+    public RocksDBSessions(HugeConfig2 config, String database, String store) {
         super(config, database + "/" + store);
     }
 
@@ -46,7 +46,7 @@ public abstract class RocksDBSessions extends BackendSessionPool {
     public abstract void compactRange();
     public abstract void flush();
 
-    public abstract RocksDBSessions copy(HugeConfig config,
+    public abstract RocksDBSessions copy(HugeConfig2 config,
                                          String database, String store);
 
     public abstract void createSnapshot(String snapshotPath);

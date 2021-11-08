@@ -20,11 +20,13 @@
 package com.baidu.hugegraph.testutil;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 
@@ -94,10 +96,10 @@ public class Utils {
                         "Need to specify a readable config file rather than:" +
                         " %s", file.toString());
 
-        PropertiesConfiguration config;
+        PropertiesConfiguration config = new PropertiesConfiguration();
         try {
-            config = new PropertiesConfiguration(file);
-        } catch (ConfigurationException e) {
+            config.read(new FileReader(file));
+        } catch (ConfigurationException | IOException e) {
             throw new HugeException("Unable to load config file: %s",
                                     e, confFile);
         }

@@ -34,7 +34,7 @@ import org.glassfish.jersey.server.monitoring.RequestEvent;
 import org.glassfish.jersey.server.monitoring.RequestEventListener;
 
 import com.baidu.hugegraph.HugeException;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.core.GraphManager;
 import com.baidu.hugegraph.define.WorkLoad;
 import com.baidu.hugegraph.event.EventHub;
@@ -45,7 +45,7 @@ import com.codahale.metrics.jersey2.InstrumentedResourceMethodApplicationListene
 @ApplicationPath("/")
 public class ApplicationConfig extends ResourceConfig {
 
-    public ApplicationConfig(HugeConfig conf, EventHub hub) {
+    public ApplicationConfig(HugeConfig2 conf, EventHub hub) {
         packages("com.baidu.hugegraph.api");
 
         // Register Jackson to support json
@@ -69,27 +69,27 @@ public class ApplicationConfig extends ResourceConfig {
     }
 
     private class ConfFactory extends AbstractBinder
-                              implements Factory<HugeConfig> {
+                              implements Factory<HugeConfig2> {
 
-        private HugeConfig conf = null;
+        private HugeConfig2 conf = null;
 
-        public ConfFactory(HugeConfig conf) {
+        public ConfFactory(HugeConfig2 conf) {
             E.checkNotNull(conf, "configuration");
             this.conf = conf;
         }
 
         @Override
         protected void configure() {
-            bindFactory(this).to(HugeConfig.class).in(RequestScoped.class);
+            bindFactory(this).to(HugeConfig2.class).in(RequestScoped.class);
         }
 
         @Override
-        public HugeConfig provide() {
+        public HugeConfig2 provide() {
             return this.conf;
         }
 
         @Override
-        public void dispose(HugeConfig conf) {
+        public void dispose(HugeConfig2 conf) {
             // pass
         }
     }
@@ -99,7 +99,7 @@ public class ApplicationConfig extends ResourceConfig {
 
         private GraphManager manager = null;
 
-        public GraphManagerFactory(HugeConfig conf, EventHub hub) {
+        public GraphManagerFactory(HugeConfig2 conf, EventHub hub) {
             register(new ApplicationEventListener() {
                 private final ApplicationEvent.Type EVENT_INITED =
                               ApplicationEvent.Type.INITIALIZATION_FINISHED;

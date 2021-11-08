@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.glassfish.hk2.api.MultiException;
 
 import com.baidu.hugegraph.HugeException;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.exception.HugeGremlinException;
 import com.baidu.hugegraph.exception.NotFoundException;
@@ -55,10 +55,10 @@ public class ExceptionFilter {
     public static class TracedExceptionMapper {
 
         @Context
-        private javax.inject.Provider<HugeConfig> configProvider;
+        private javax.inject.Provider<HugeConfig2> configProvider;
 
         protected boolean trace() {
-            HugeConfig config = this.configProvider.get();
+            HugeConfig2 config = this.configProvider.get();
             if (config == null) {
                 return false;
             }

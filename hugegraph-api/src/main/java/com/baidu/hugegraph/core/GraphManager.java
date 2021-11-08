@@ -23,6 +23,7 @@ import static com.baidu.hugegraph.space.GraphSpace.DEFAULT_GRAPH_SPACE_NAME;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +33,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.convert.DisabledListDelimiterHandler;
 import org.apache.tinkerpop.gremlin.server.auth.AuthenticationException;
 import org.apache.tinkerpop.gremlin.server.util.MetricManager;
 import org.apache.tinkerpop.gremlin.structure.Graph;
@@ -55,7 +57,7 @@ import com.baidu.hugegraph.backend.id.Id;
 import com.baidu.hugegraph.backend.id.IdGenerator;
 import com.baidu.hugegraph.backend.store.BackendStoreSystemInfo;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.config.TypedOption;
 import com.baidu.hugegraph.event.EventHub;
@@ -103,7 +105,7 @@ public final class GraphManager {
     private final Id serverId;
     private final NodeRole serverRole;
 
-    public GraphManager(HugeConfig conf, EventHub hub) {
+    public GraphManager(HugeConfig2 conf, EventHub hub) {
         String server = conf.get(ServerOptions.SERVER_ID);
         String role = conf.get(ServerOptions.SERVER_ROLE);
         this.startIgnoreSingleGraphError = conf.get(
@@ -365,7 +367,7 @@ public final class GraphManager {
                         "The graph name '%s' has existed", name);
 
         PropertiesConfiguration propConfig = this.buildConfig(configText);
-        HugeConfig config = new HugeConfig(propConfig);
+        HugeConfig2 config = new HugeConfig2(propConfig);
         this.checkOptions(config);
         HugeGraph graph = this.createGraph(config, init);
 
@@ -381,7 +383,7 @@ public final class GraphManager {
         return graph;
     }
 
-    private HugeGraph createGraph(HugeConfig config, boolean init) {
+    private HugeGraph createGraph(HugeConfig2 config, boolean init) {
         // open succeed will fill graph instance into HugeFactory graphs(map)
         HugeGraph graph = (HugeGraph) GraphFactory.open(config);
         if (this.requireAuthentication()) {
@@ -409,15 +411,16 @@ public final class GraphManager {
         try {
             InputStream in = new ByteArrayInputStream(configText.getBytes(
                                                       API.CHARSET));
-            propConfig.setDelimiterParsingDisabled(true);
-            propConfig.load(in);
+            propConfig.setListDelimiterHandler(
+                       new DisabledListDelimiterHandler());
+            propConfig.read(new InputStreamReader(in));
         } catch (Exception e) {
             throw new IllegalStateException("Failed to read config options", e);
         }
         return propConfig;
     }
 
-    private void checkOptions(HugeConfig config) {
+    private void checkOptions(HugeConfig2 config) {
         // The store cannot be the same as the existing graph
         this.checkOptionsUnique(config, CoreOptions.STORE);
         // NOTE: rocksdb can't use same data path for different graph,
@@ -562,7 +565,7 @@ public final class GraphManager {
     }
 
     @SuppressWarnings("unused")
-    private void installLicense(HugeConfig config, String md5) {
+    private void installLicense(HugeConfig2 config, String md5) {
         LicenseVerifier.instance().install(config, this, md5);
     }
 
@@ -601,7 +604,7 @@ public final class GraphManager {
         }
     }
 
-    private void checkBackendVersionOrExit(HugeConfig config) {
+    private void checkBackendVersionOrExit(HugeConfig2 config) {
         for (Graph g : this.graphs.values()) {
             try {
                 // TODO: close tx from main thread
@@ -731,7 +734,7 @@ public final class GraphManager {
         }
     }
 
-    private void addMetrics(HugeConfig config) {
+    private void addMetrics(HugeConfig2 config) {
         final MetricManager metric = MetricManager.INSTANCE;
         // Force to add server reporter
         ServerReporter reporter = ServerReporter.instance(metric.getRegistry());
@@ -765,7 +768,7 @@ public final class GraphManager {
                                   () -> TaskManager.instance().pendingTasks());
     }
 
-    private void checkOptionsUnique(HugeConfig config,
+    private void checkOptionsUnique(HugeConfig2 config,
                                     TypedOption<?, ?> option) {
         Object incomingValue = config.get(option);
         for (String graphName : this.graphs.keySet()) {

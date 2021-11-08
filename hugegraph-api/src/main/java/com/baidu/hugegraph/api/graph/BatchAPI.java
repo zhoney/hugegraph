@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import com.baidu.hugegraph.HugeException;
 import com.baidu.hugegraph.HugeGraph;
 import com.baidu.hugegraph.api.API;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.define.Checkable;
 import com.baidu.hugegraph.define.UpdateStrategy;
@@ -62,7 +62,7 @@ public class BatchAPI extends API {
                                                     "batch-commit");
     }
 
-    public <R> R commit(HugeConfig config, HugeGraph g, int size,
+    public <R> R commit(HugeConfig2 config, HugeGraph g, int size,
                         Callable<R> callable) {
         int maxWriteThreads = config.get(ServerOptions.MAX_WRITE_THREADS);
         for( int retry = 0; retry < BUSY_TIME_OUT &&

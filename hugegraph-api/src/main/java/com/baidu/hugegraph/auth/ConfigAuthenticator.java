@@ -27,7 +27,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.apache.tinkerpop.gremlin.groovy.jsr223.dsl.credential.CredentialGraphTokens;
 
 import com.baidu.hugegraph.backend.id.IdGenerator;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.util.E;
 
@@ -45,7 +45,7 @@ public class ConfigAuthenticator implements HugeAuthenticator {
     }
 
     @Override
-    public void setup(HugeConfig config) {
+    public void setup(HugeConfig2 config) {
         this.tokens.putAll(config.getMap(ServerOptions.AUTH_USER_TOKENS));
         assert !this.tokens.containsKey(USER_ADMIN);
         this.tokens.put(USER_ADMIN, config.get(ServerOptions.AUTH_ADMIN_TOKEN));

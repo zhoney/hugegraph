@@ -66,7 +66,7 @@ import com.baidu.hugegraph.backend.store.BackendEntry;
 import com.baidu.hugegraph.backend.store.BackendMutation;
 import com.baidu.hugegraph.backend.store.BackendStore;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.LimitExceedException;
 import com.baidu.hugegraph.exception.NotFoundException;
 import com.baidu.hugegraph.iterator.BatchMapperIterator;
@@ -144,7 +144,7 @@ public class GraphTransaction extends IndexableTransaction {
 
         this.locksTable = new LockUtil.LocksTable(graph.name());
 
-        final HugeConfig conf = graph.configuration();
+        final HugeConfig2 conf = graph.configuration();
         this.checkCustomVertexExist =
              conf.get(CoreOptions.VERTEX_CHECK_CUSTOMIZED_ID_EXIST);
         this.checkAdjacentVertexExist =

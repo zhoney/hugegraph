@@ -21,7 +21,7 @@ package com.baidu.hugegraph.backend.store.postgresql;
 
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.mysql.MysqlStore;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 
 public abstract class PostgresqlStore extends MysqlStore {
 
@@ -31,7 +31,7 @@ public abstract class PostgresqlStore extends MysqlStore {
     }
 
     @Override
-    protected PostgresqlSessions openSessionPool(HugeConfig config) {
+    protected PostgresqlSessions openSessionPool(HugeConfig2 config) {
         return new PostgresqlSessions(config, this.database(), this.store());
     }
 }

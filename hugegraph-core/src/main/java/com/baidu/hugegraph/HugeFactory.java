@@ -20,18 +20,19 @@
 package com.baidu.hugegraph;
 
 import java.io.File;
-import java.net.URL;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.event.EventHub;
 import com.baidu.hugegraph.task.TaskManager;
 import com.baidu.hugegraph.traversal.algorithm.OltpTraverser;
@@ -58,22 +59,12 @@ public class HugeFactory {
     private static final Map<String, HugeGraph> graphs = new HashMap<>();
 
     public static synchronized HugeGraph open(Configuration config) {
-        HugeConfig conf = config instanceof HugeConfig ?
-                          (HugeConfig) config : new HugeConfig(config);
+        HugeConfig2 conf = config instanceof HugeConfig2 ?
+                           (HugeConfig2) config : new HugeConfig2(config);
         return open(conf);
     }
 
-    public static synchronized HugeGraph open(HugeConfig config) {
-        SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            // Not allowed to read file via Gremlin when SecurityManager enabled
-            String configFile = config.getFileName();
-            if (configFile == null) {
-                configFile = config.toString();
-            }
-            sm.checkRead(configFile);
-        }
-
+    public static synchronized HugeGraph open(HugeConfig2 config) {
         String name = config.get(CoreOptions.STORE);
         checkGraphName(name, "graph config(like hugegraph.properties)");
         name = name.toLowerCase();
@@ -94,10 +85,6 @@ public class HugeFactory {
         return open(getLocalConfig(path));
     }
 
-    public static HugeGraph open(URL url) {
-        return open(getRemoteConfig(url));
-    }
-
     public static void checkGraphName(String name, String configFile) {
         E.checkArgument(name.matches(NAME_REGEX),
                         "Invalid graph name '%s' in %s, " +
@@ -112,20 +99,13 @@ public class HugeFactory {
         E.checkArgument(file.exists() && file.isFile() && file.canRead(),
                         "Please specify a proper config file rather than: %s",
                         file.toString());
+        PropertiesConfiguration configs = new PropertiesConfiguration();
         try {
-            return new PropertiesConfiguration(file);
-        } catch (ConfigurationException e) {
+            configs.read(new FileReader(path));
+        } catch (ConfigurationException | IOException e) {
             throw new HugeException("Unable to load config file: %s", e, path);
         }
-    }
-
-    public static PropertiesConfiguration getRemoteConfig(URL url) {
-        try {
-            return new PropertiesConfiguration(url);
-        } catch (ConfigurationException e) {
-            throw new HugeException("Unable to load remote config file: %s",
-                                    e, url);
-        }
+        return configs;
     }
 
     /**
@@ -146,7 +126,7 @@ public class HugeFactory {
     }
 
     public static void remove(HugeGraph graph) {
-        HugeConfig config = (HugeConfig) graph.configuration();
+        HugeConfig2 config = (HugeConfig2) graph.configuration();
         String name = config.get(CoreOptions.STORE);
         graphs.remove(name);
     }

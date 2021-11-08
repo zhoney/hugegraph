@@ -66,7 +66,7 @@ import com.baidu.hugegraph.backend.serializer.AbstractSerializer;
 import com.baidu.hugegraph.backend.store.BackendEntry;
 import com.baidu.hugegraph.backend.store.BackendStore;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.NoIndexException;
 import com.baidu.hugegraph.exception.NotAllowException;
 import com.baidu.hugegraph.exception.NotSupportException;
@@ -113,7 +113,7 @@ public class GraphIndexTransaction extends AbstractTransaction {
         this.textAnalyzer = graph.analyzer();
         assert this.textAnalyzer != null;
 
-        final HugeConfig conf = graph.configuration();
+        final HugeConfig2 conf = graph.configuration();
         this.indexIntersectThresh =
              conf.get(CoreOptions.QUERY_INDEX_INTERSECT_THRESHOLD);
     }

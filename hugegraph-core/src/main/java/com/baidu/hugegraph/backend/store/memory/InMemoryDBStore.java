@@ -38,7 +38,7 @@ import com.baidu.hugegraph.backend.store.BackendFeatures;
 import com.baidu.hugegraph.backend.store.BackendMutation;
 import com.baidu.hugegraph.backend.store.BackendSession;
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.Log;
 
@@ -177,7 +177,7 @@ public abstract class InMemoryDBStore
     }
 
     @Override
-    public void open(HugeConfig config) {
+    public void open(HugeConfig2 config) {
         LOG.debug("Store opened: {}", this.store);
     }
 

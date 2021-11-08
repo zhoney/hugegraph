@@ -32,7 +32,7 @@ import com.baidu.hugegraph.backend.BackendException;
 import com.baidu.hugegraph.backend.store.mysql.MysqlSessions;
 import com.baidu.hugegraph.backend.store.mysql.MysqlStore;
 import com.baidu.hugegraph.backend.store.mysql.MysqlUtil;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.Log;
 
 public class PostgresqlSessions extends MysqlSessions {
@@ -44,7 +44,8 @@ public class PostgresqlSessions extends MysqlSessions {
     private static final String POSTGRESQL_DB_CREATE = COCKROACH_DB_CREATE +
             " TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C';";
 
-    public PostgresqlSessions(HugeConfig config, String database, String store) {
+    public PostgresqlSessions(HugeConfig2 config, String database,
+                              String store) {
         super(config, database, store);
     }
 

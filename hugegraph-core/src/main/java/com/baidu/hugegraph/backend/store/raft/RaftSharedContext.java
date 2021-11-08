@@ -52,7 +52,7 @@ import com.baidu.hugegraph.backend.store.raft.rpc.RpcForwarder;
 import com.baidu.hugegraph.backend.store.raft.rpc.SetLeaderProcessor;
 import com.baidu.hugegraph.backend.store.raft.rpc.StoreCommandProcessor;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.event.EventHub;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.type.define.GraphMode;
@@ -100,7 +100,7 @@ public final class RaftSharedContext {
 
     public RaftSharedContext(HugeGraphParams params) {
         this.params = params;
-        HugeConfig config = params.configuration();
+        HugeConfig2 config = params.configuration();
 
         this.schemaStoreName = config.get(CoreOptions.STORE_SCHEMA);
         this.graphStoreName = config.get(CoreOptions.STORE_GRAPH);
@@ -202,7 +202,7 @@ public final class RaftSharedContext {
     }
 
     public NodeOptions nodeOptions() throws IOException {
-        HugeConfig config = this.config();
+        HugeConfig2 config = this.config();
         PeerId selfId = new PeerId();
         selfId.parse(config.get(CoreOptions.RAFT_ENDPOINT));
 
@@ -322,7 +322,7 @@ public final class RaftSharedContext {
         return this.params.mode();
     }
 
-    private HugeConfig config() {
+    private HugeConfig2 config() {
         return this.params.configuration();
     }
 

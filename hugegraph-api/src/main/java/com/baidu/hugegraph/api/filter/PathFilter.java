@@ -80,9 +80,8 @@ public class PathFilter implements ContainerRequestFilter {
         }
 
         UriInfo uriInfo = context.getUriInfo();
-        System.out.println(uriInfo.getBaseUri().getPath());
         String path = uriInfo.getBaseUri().getPath() +
-                String.join(DELIMETER, GRAPH_SPACE, DEFAULT_GRAPH_SPACE_NAME);
+               String.join(DELIMETER, GRAPH_SPACE, DEFAULT_GRAPH_SPACE_NAME);
         for (PathSegment segment : segments) {
             path = String.join(DELIMETER, path, segment.getPath());
         }

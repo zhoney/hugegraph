@@ -38,7 +38,7 @@ import com.baidu.hugegraph.backend.store.BackendStore;
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.raft.rpc.RaftRequests.StoreAction;
 import com.baidu.hugegraph.backend.store.raft.rpc.RaftRequests.StoreType;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.E;
 import com.baidu.hugegraph.util.Log;
@@ -88,7 +88,7 @@ public class RaftBackendStore implements BackendStore {
     }
 
     @Override
-    public synchronized void open(HugeConfig config) {
+    public synchronized void open(HugeConfig2 config) {
         this.store.open(config);
     }
 

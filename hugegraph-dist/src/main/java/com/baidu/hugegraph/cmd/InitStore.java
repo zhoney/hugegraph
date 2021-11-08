@@ -34,7 +34,7 @@ import com.baidu.hugegraph.HugeGraph;
 import com.baidu.hugegraph.auth.StandardAuthenticator;
 import com.baidu.hugegraph.backend.store.BackendStoreSystemInfo;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.dist.RegisterUtil;
 import com.baidu.hugegraph.util.ConfigUtil;
@@ -69,7 +69,7 @@ public class InitStore {
                         "Expect the parameter is properties config file.");
 
         String restConf = args[0];
-        HugeConfig restServerConfig = new HugeConfig(restConf);
+        HugeConfig2 restServerConfig = new HugeConfig2(restConf);
 
         boolean loadFromLocalConfig;
         try {
@@ -92,7 +92,7 @@ public class InitStore {
         Map<String, String> graphConfs = ConfigUtil.scanGraphsDir(graphsDir);
         List<String> sortedGraphNames = new ArrayList<>(graphConfs.keySet());
         sortedGraphNames.sort((t0, t1) -> {
-            HugeConfig config = new HugeConfig(graphConfs.get(t0));
+            HugeConfig2 config = new HugeConfig2(graphConfs.get(t0));
             String clazz = config.getString("gremlin.graph", null);
             if (clazz != null &&
                 clazz.trim().equals("com.baidu.hugegraph.HugeFactory")) {
@@ -112,7 +112,7 @@ public class InitStore {
 
     private static void initGraph(String configPath) throws Exception {
         LOG.info("Init graph with config file: {}", configPath);
-        HugeConfig config = new HugeConfig(configPath);
+        HugeConfig2 config = new HugeConfig2(configPath);
         // Forced set RAFT_MODE to false when initializing backend
         config.setProperty(CoreOptions.RAFT_MODE.name(), "false");
         HugeGraph graph = (HugeGraph) GraphFactory.open(config);

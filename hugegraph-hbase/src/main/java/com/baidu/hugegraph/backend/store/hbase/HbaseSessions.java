@@ -75,7 +75,7 @@ import com.baidu.hugegraph.backend.store.BackendEntry.BackendColumn;
 import com.baidu.hugegraph.backend.store.BackendEntry.BackendIterator;
 import com.baidu.hugegraph.backend.store.BackendSession.AbstractBackendSession;
 import com.baidu.hugegraph.backend.store.BackendSessionPool;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.NotSupportException;
 import com.baidu.hugegraph.util.Bytes;
 import com.baidu.hugegraph.util.E;
@@ -92,7 +92,7 @@ public class HbaseSessions extends BackendSessionPool {
     private final String namespace;
     private Connection hbase;
 
-    public HbaseSessions(HugeConfig config, String namespace, String store) {
+    public HbaseSessions(HugeConfig2 config, String namespace, String store) {
         super(config, namespace + "/" + store);
         this.namespace = namespace;
     }
@@ -119,7 +119,7 @@ public class HbaseSessions extends BackendSessionPool {
 
     @Override
     public synchronized void open() throws IOException {
-        HugeConfig config = this.config();
+        HugeConfig2 config = this.config();
         String hosts = config.get(HbaseOptions.HBASE_HOSTS);
         int port = config.get(HbaseOptions.HBASE_PORT);
         String znodeParent = config.get(HbaseOptions.HBASE_ZNODE_PARENT);

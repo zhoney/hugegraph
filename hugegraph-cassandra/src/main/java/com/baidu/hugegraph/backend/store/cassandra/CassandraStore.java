@@ -42,7 +42,7 @@ import com.baidu.hugegraph.backend.store.BackendFeatures;
 import com.baidu.hugegraph.backend.store.BackendMutation;
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.ConnectionException;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.E;
@@ -70,7 +70,7 @@ public abstract class CassandraStore
     private final Map<String, CassandraTable> tables;
 
     private CassandraSessionPool sessions;
-    private HugeConfig conf;
+    private HugeConfig2 conf;
     private boolean isGraphStore;
 
     public CassandraStore(final BackendStoreProvider provider,
@@ -107,7 +107,7 @@ public abstract class CassandraStore
         });
     }
 
-    protected CassandraMetrics createMetrics(HugeConfig conf,
+    protected CassandraMetrics createMetrics(HugeConfig2 conf,
                                              CassandraSessionPool sessions,
                                              String keyspace) {
         return new CassandraMetrics(conf, sessions, keyspace);
@@ -141,7 +141,7 @@ public abstract class CassandraStore
     }
 
     @Override
-    public synchronized void open(HugeConfig config) {
+    public synchronized void open(HugeConfig2 config) {
         LOG.debug("Store open: {}", this.store);
         E.checkNotNull(config, "config");
 
@@ -499,7 +499,7 @@ public abstract class CassandraStore
         }
     }
 
-    private static Map<String, Object> parseReplica(HugeConfig conf) {
+    private static Map<String, Object> parseReplica(HugeConfig2 conf) {
         Map<String, Object> replication = new HashMap<>();
         // Replication strategy: SimpleStrategy or NetworkTopologyStrategy
         String strategy = conf.get(CassandraOptions.CASSANDRA_STRATEGY);

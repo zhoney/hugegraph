@@ -26,7 +26,7 @@ import java.util.List;
 import com.baidu.hugegraph.backend.BackendException;
 import com.baidu.hugegraph.backend.store.BackendSession.AbstractBackendSession;
 import com.baidu.hugegraph.backend.store.BackendSessionPool;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.E;
 import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.Cluster;
@@ -46,7 +46,7 @@ public class CassandraSessionPool extends BackendSessionPool {
     private Cluster cluster;
     private final String keyspace;
 
-    public CassandraSessionPool(HugeConfig config,
+    public CassandraSessionPool(HugeConfig2 config,
                                 String keyspace, String store) {
         super(config, keyspace + "/" + store);
         this.cluster = null;
@@ -60,7 +60,7 @@ public class CassandraSessionPool extends BackendSessionPool {
                                        "before opening a new one");
         }
 
-        HugeConfig config = this.config();
+        HugeConfig2 config = this.config();
         // Contact options
         String hosts = config.get(CassandraOptions.CASSANDRA_HOST);
         int port = config.get(CassandraOptions.CASSANDRA_PORT);
@@ -260,7 +260,7 @@ public class CassandraSessionPool extends BackendSessionPool {
         }
 
         public int aggregateTimeout() {
-            HugeConfig conf = CassandraSessionPool.this.config();
+            HugeConfig2 conf = CassandraSessionPool.this.config();
             return conf.get(CassandraOptions.AGGR_TIMEOUT);
         }
     }

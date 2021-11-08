@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.BackendTable;
 import com.baidu.hugegraph.backend.store.mysql.MysqlStore;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.Log;
 
 public abstract class PaloStore extends MysqlStore {
@@ -40,7 +40,7 @@ public abstract class PaloStore extends MysqlStore {
     }
 
     @Override
-    protected PaloSessions openSessionPool(HugeConfig config) {
+    protected PaloSessions openSessionPool(HugeConfig2 config) {
         LOG.info("Open palo session pool for {}", this);
         return new PaloSessions(config, this.database(), this.store(),
                                 this.tableNames());

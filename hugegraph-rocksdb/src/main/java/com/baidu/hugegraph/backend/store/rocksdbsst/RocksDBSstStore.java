@@ -28,7 +28,7 @@ import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBSessions;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBStore;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBTables;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.type.HugeType;
 
 public abstract class RocksDBSstStore extends RocksDBStore {
@@ -39,7 +39,7 @@ public abstract class RocksDBSstStore extends RocksDBStore {
     }
 
     @Override
-    protected RocksDBSessions openSessionPool(HugeConfig config,
+    protected RocksDBSessions openSessionPool(HugeConfig2 config,
                                               String dataPath, String walPath,
                                               List<String> tableNames)
                                               throws RocksDBException {

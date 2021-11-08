@@ -48,6 +48,7 @@ import org.apache.tinkerpop.gremlin.process.traversal.Traversal.Admin;
 import org.apache.tinkerpop.gremlin.process.traversal.TraversalStrategies;
 import org.apache.tinkerpop.gremlin.process.traversal.TraversalStrategy;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
+
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Element;
 import org.apache.tinkerpop.gremlin.structure.Graph;
@@ -71,7 +72,7 @@ import com.baidu.hugegraph.backend.store.BackendFeatures;
 import com.baidu.hugegraph.backend.store.BackendStoreSystemInfo;
 import com.baidu.hugegraph.backend.store.raft.RaftGroupManager;
 import com.baidu.hugegraph.config.AuthOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.TypedOption;
 import com.baidu.hugegraph.exception.NotSupportException;
 import com.baidu.hugegraph.iterator.FilterIterator;
@@ -120,7 +121,7 @@ public final class HugeGraphAuthProxy implements HugeGraph {
 
     public HugeGraphAuthProxy(HugeGraph hugegraph) {
         LOG.info("Wrap graph '{}' with HugeGraphAuthProxy", hugegraph.name());
-        HugeConfig config = (HugeConfig) hugegraph.configuration();
+        HugeConfig2 config = (HugeConfig2) hugegraph.configuration();
         long expired = config.get(AuthOptions.AUTH_PROXY_CACHE_EXPIRE);
         long capacity = config.get(AuthOptions.AUTH_CACHE_CAPACITY);
 
@@ -551,7 +552,7 @@ public final class HugeGraphAuthProxy implements HugeGraph {
     }
 
     @Override
-    public HugeConfig configuration() {
+    public HugeConfig2 configuration() {
         throw new NotSupportException("Graph.configuration()");
     }
 
@@ -1594,32 +1595,37 @@ public final class HugeGraphAuthProxy implements HugeGraph {
         }
 
         @Override
-        public void applyStrategies(Admin<?, ?> traversal) {
-            String script;
-            if (traversal instanceof HugeScriptTraversal) {
-                script = ((HugeScriptTraversal<?, ?>) traversal).script();
-            } else {
-                GroovyTranslator translator = GroovyTranslator.of("g");
-                script = translator.translate(traversal.getBytecode());
-            }
-
-            /*
-             * Verify gremlin-execute permission for user gremlin(in gremlin-
-             * server-exec worker) and gremlin job(in task worker).
-             * But don't check permission in rest worker, because the following
-             * places need to call traversal():
-             *  1.vertices/edges rest api
-             *  2.oltp rest api (like crosspointpath/neighborrank)
-             *  3.olap rest api (like centrality/lpa/louvain/subgraph)
-             */
-            String caller = Thread.currentThread().getName();
-            if (!caller.contains(REST_WORKER)) {
-                verifyNamePermission(HugePermission.EXECUTE,
-                                     ResourceType.GREMLIN, script);
-            }
-
-            this.strategies.applyStrategies(traversal);
+        public Iterator<TraversalStrategy<?>> iterator() {
+            return this.strategies.iterator();
         }
+
+//        @Override
+//        public void applyStrategies(Admin<?, ?> traversal) {
+//            String script;
+//            if (traversal instanceof HugeScriptTraversal) {
+//                script = ((HugeScriptTraversal<?, ?>) traversal).script();
+//            } else {
+//                GroovyTranslator translator = GroovyTranslator.of("g");
+//                script = translator.translate(traversal.getBytecode())
+//                                   .getScript();
+//            }
+//
+//            /*
+//             * Verify gremlin-execute permission for user gremlin(in gremlin-
+//             * server-exec worker) and gremlin job(in task worker).
+//             * But don't check permission in rest worker, because the following
+//             * places need to call traversal():
+//             *  1.vertices/edges rest api
+//             *  2.oltp rest api (like crosspointpath/neighborrank)
+//             *  3.olap rest api (like centrality/lpa/louvain/subgraph)
+//             */
+//            String caller = Thread.currentThread().getName();
+//            if (!caller.contains(REST_WORKER)) {
+//                verifyNamePermission(HugePermission.EXECUTE,
+//                                     ResourceType.GREMLIN, script);
+//            }
+//            this.strategies.applyStrategies(traversal);
+//        }
 
         @Override
         public TraversalStrategies addStrategies(TraversalStrategy<?>...
@@ -1740,7 +1746,7 @@ public final class HugeGraphAuthProxy implements HugeGraph {
         public ContextThreadPoolExecutor(int corePoolSize, int maxPoolSize,
                                          ThreadFactory threadFactory) {
             super(corePoolSize, maxPoolSize, 0L, TimeUnit.MILLISECONDS,
-                  new LinkedBlockingQueue<Runnable>(), threadFactory);
+                  new LinkedBlockingQueue<>(), threadFactory);
         }
 
         @Override

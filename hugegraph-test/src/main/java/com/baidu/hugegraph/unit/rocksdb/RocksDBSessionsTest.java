@@ -31,7 +31,7 @@ import com.baidu.hugegraph.backend.store.rocksdb.RocksDBOptions;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBSessions;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBStdSessions;
 import com.baidu.hugegraph.backend.store.rocksdbsst.RocksDBSstSessions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.testutil.Assert;
 import com.baidu.hugegraph.unit.FakeObjects;
 import com.google.common.collect.ImmutableList;
@@ -141,7 +141,7 @@ public class RocksDBSessionsTest extends BaseRocksDBUnitTest {
     public void testCopySessions() throws RocksDBException {
         Assert.assertFalse(this.rocks.closed());
 
-        HugeConfig config = FakeObjects.newConfig();
+        HugeConfig2 config = FakeObjects.newConfig();
         RocksDBSessions copy = this.rocks.copy(config, "db2", "store2");
         Assert.assertFalse(this.rocks.closed());
 
@@ -161,7 +161,7 @@ public class RocksDBSessionsTest extends BaseRocksDBUnitTest {
 
     @Test
     public void testIngestSst() throws RocksDBException {
-        HugeConfig config = FakeObjects.newConfig();
+        HugeConfig2 config = FakeObjects.newConfig();
         String sstPath = DB_PATH + "/sst";
         config.addProperty(RocksDBOptions.SST_PATH.name(), sstPath);
         RocksDBSstSessions sstSessions = new RocksDBSstSessions(config,

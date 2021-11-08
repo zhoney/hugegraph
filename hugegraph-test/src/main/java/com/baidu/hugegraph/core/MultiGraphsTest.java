@@ -24,9 +24,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.configuration.BaseConfiguration;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.BaseConfiguration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.convert.DisabledListDelimiterHandler;
 import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.structure.util.GraphFactory;
@@ -384,7 +385,8 @@ public class MultiGraphsTest {
             String key = keys.next();
             config.setProperty(key, conf.getProperty(key));
         }
-        ((BaseConfiguration) config).setDelimiterParsingDisabled(true);
+        ((BaseConfiguration) config).setListDelimiterHandler(
+                                     new DisabledListDelimiterHandler());
 
         config.setProperty(CoreOptions.STORE.name(), graphName);
         String dataPath = config.getString(RocksDBOptions.DATA_PATH.name());

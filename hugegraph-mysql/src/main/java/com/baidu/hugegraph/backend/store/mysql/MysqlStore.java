@@ -39,7 +39,7 @@ import com.baidu.hugegraph.backend.store.BackendFeatures;
 import com.baidu.hugegraph.backend.store.BackendMutation;
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.mysql.MysqlSessions.Session;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.ConnectionException;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.E;
@@ -86,7 +86,7 @@ public abstract class MysqlStore extends AbstractBackendStore<Session> {
         this.tables.put(type, table);
     }
 
-    protected MysqlSessions openSessionPool(HugeConfig config) {
+    protected MysqlSessions openSessionPool(HugeConfig2 config) {
         return new MysqlSessions(config, this.database, this.store);
     }
 
@@ -106,7 +106,7 @@ public abstract class MysqlStore extends AbstractBackendStore<Session> {
     }
 
     @Override
-    public synchronized void open(HugeConfig config) {
+    public synchronized void open(HugeConfig2 config) {
         LOG.debug("Store open: {}", this.store);
 
         E.checkNotNull(config, "config");

@@ -43,7 +43,7 @@ import com.baidu.hugegraph.backend.store.BackendEntry.BackendColumnIterator;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBIngester;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBSessions;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBStdSessions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.NotSupportException;
 import com.baidu.hugegraph.util.E;
 
@@ -52,7 +52,7 @@ public class RocksDBSstSessions extends RocksDBSessions {
     private final String dataPath;
     private final Map<String, SstFileWriter> tables;
 
-    public RocksDBSstSessions(HugeConfig config, String database, String store,
+    public RocksDBSstSessions(HugeConfig2 config, String database, String store,
                               String dataPath) {
         super(config, database, store);
 
@@ -65,7 +65,7 @@ public class RocksDBSstSessions extends RocksDBSessions {
         }
     }
 
-    public RocksDBSstSessions(HugeConfig config, String dataPath,
+    public RocksDBSstSessions(HugeConfig2 config, String dataPath,
                               String database, String store,
                               List<String> tableNames) throws RocksDBException {
         this(config, dataPath, database, store);
@@ -74,8 +74,8 @@ public class RocksDBSstSessions extends RocksDBSessions {
         }
     }
 
-    private RocksDBSstSessions(HugeConfig config, String database, String store,
-                               RocksDBSstSessions origin) {
+    private RocksDBSstSessions(HugeConfig2 config, String database,
+                               String store, RocksDBSstSessions origin) {
         super(config, database, store);
 
         this.dataPath = origin.dataPath;
@@ -162,7 +162,7 @@ public class RocksDBSstSessions extends RocksDBSessions {
     }
 
     @Override
-    public RocksDBSessions copy(HugeConfig config,
+    public RocksDBSessions copy(HugeConfig2 config,
                                 String database, String store) {
         return new RocksDBSstSessions(config, database, store, this);
     }

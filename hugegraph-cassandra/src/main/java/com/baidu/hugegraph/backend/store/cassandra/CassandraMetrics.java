@@ -38,7 +38,7 @@ import com.baidu.hugegraph.backend.store.BackendTable;
 import com.baidu.hugegraph.backend.store.cassandra.CassandraTables.Edge;
 import com.baidu.hugegraph.backend.store.cassandra.CassandraTables.Vertex;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.testutil.Whitebox;
 import com.baidu.hugegraph.util.E;
 import com.baidu.hugegraph.util.InsertionOrderUtil;
@@ -57,7 +57,7 @@ public class CassandraMetrics implements BackendMetrics {
     private final String keyspace;
     private final List<String> tables;
 
-    public CassandraMetrics(HugeConfig conf,
+    public CassandraMetrics(HugeConfig2 conf,
                             CassandraSessionPool sessions,
                             String keyspace) {
         E.checkNotNull(conf, "config");

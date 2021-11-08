@@ -38,7 +38,7 @@ import com.baidu.hugegraph.backend.store.BackendStore;
 import com.baidu.hugegraph.backend.store.ram.RamTable;
 import com.baidu.hugegraph.backend.tx.GraphTransaction;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.event.EventHub;
 import com.baidu.hugegraph.event.EventListener;
 import com.baidu.hugegraph.exception.NotSupportException;
@@ -70,7 +70,7 @@ public final class CachedGraphTransaction extends GraphTransaction {
     public CachedGraphTransaction(HugeGraphParams graph, BackendStore store) {
         super(graph, store);
 
-        HugeConfig conf = graph.configuration();
+        HugeConfig2 conf = graph.configuration();
 
         String type = conf.get(CoreOptions.VERTEX_CACHE_TYPE);
         long capacity = conf.get(CoreOptions.VERTEX_CACHE_CAPACITY);

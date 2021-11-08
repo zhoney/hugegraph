@@ -25,18 +25,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.NotSupportedException;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.tree.ConfigurationNode;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tinkerpop.gremlin.util.config.YamlConfiguration;
 import org.slf4j.Logger;
 
 import com.baidu.hugegraph.HugeException;
@@ -49,21 +46,6 @@ public final class ConfigUtil {
 
     private static final String NODE_GRAPHS = "graphs";
     private static final String SUFFIX = ".properties";
-
-    public static void checkGremlinConfig(String conf) {
-        YamlConfiguration yamlConfig = new YamlConfiguration();
-        try {
-            yamlConfig.load(conf);
-        } catch (ConfigurationException e) {
-            throw new HugeException(
-                      "Failed to load yaml config file %s", e, conf);
-        }
-        List<ConfigurationNode> nodes = yamlConfig.getRootNode()
-                                                  .getChildren(NODE_GRAPHS);
-        E.checkArgument(nodes == null || nodes.size() == 1,
-                        "Not allowed to specify multiple '%s' nodes in " +
-                        "config file '%s'", NODE_GRAPHS, conf);
-    }
 
     public static Map<String, String> scanGraphsDir(String graphsDirPath) {
         LOG.info("Scanning graphs configuration directory {}", graphsDirPath);

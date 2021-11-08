@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.rest.AbstractRestClient;
 import com.baidu.hugegraph.rest.RestClient;
 import com.google.common.collect.ImmutableMap;
@@ -34,7 +34,7 @@ public class PaloHttpClient {
 
     private final RestClient client;
 
-    public PaloHttpClient(HugeConfig config, String database) {
+    public PaloHttpClient(HugeConfig2 config, String database) {
         String url = this.buildUrl(config, database);
         String username = config.get(PaloOptions.PALO_USERNAME);
         String password = config.get(PaloOptions.PALO_PASSWORD);
@@ -43,7 +43,7 @@ public class PaloHttpClient {
         this.client = new Client(url, username, password, timeout);
     }
 
-    private String buildUrl(HugeConfig config, String database) {
+    private String buildUrl(HugeConfig2 config, String database) {
         String host = config.get(PaloOptions.PALO_HOST);
         Integer port = config.get(PaloOptions.PALO_HTTP_PORT);
         return String.format("http://%s:%s/api/%s/", host, port, database);

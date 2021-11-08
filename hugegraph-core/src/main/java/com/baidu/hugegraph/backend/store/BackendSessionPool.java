@@ -28,21 +28,21 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.Log;
 
 public abstract class BackendSessionPool {
 
     private static final Logger LOG = Log.logger(BackendSessionPool.class);
 
-    private final HugeConfig config;
+    private final HugeConfig2 config;
     private final String name;
     private final ThreadLocal<BackendSession> threadLocalSession;
     private final AtomicInteger sessionCount;
     private final Map<Long, BackendSession> sessions;
     private final long reconnectDetectInterval;
 
-    public BackendSessionPool(HugeConfig config, String name) {
+    public BackendSessionPool(HugeConfig2 config, String name) {
         this.config = config;
         this.name = name;
         this.threadLocalSession = new ThreadLocal<>();
@@ -52,7 +52,7 @@ public abstract class BackendSessionPool {
                                        CoreOptions.STORE_CONN_DETECT_INTERVAL);
     }
 
-    public HugeConfig config() {
+    public HugeConfig2 config() {
         return this.config;
     }
 

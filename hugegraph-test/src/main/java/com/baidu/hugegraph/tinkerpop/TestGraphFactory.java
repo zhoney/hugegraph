@@ -19,7 +19,7 @@
 
 package com.baidu.hugegraph.tinkerpop;
 
-import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration2.Configuration;
 
 import com.baidu.hugegraph.HugeFactory;
 

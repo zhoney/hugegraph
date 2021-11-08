@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 
 import com.baidu.hugegraph.HugeException;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.core.GraphManager;
 import com.baidu.hugegraph.util.Bytes;
@@ -53,7 +53,7 @@ public class LicenseVerifyManager extends CommonLicenseManager {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final int NO_LIMIT = -1;
 
-    private HugeConfig config;
+    private HugeConfig2 config;
     private GraphManager graphManager;
     private final MachineInfo machineInfo;
 
@@ -62,11 +62,11 @@ public class LicenseVerifyManager extends CommonLicenseManager {
         this.machineInfo = new MachineInfo();
     }
 
-    public void config(HugeConfig config) {
+    public void config(HugeConfig2 config) {
         this.config = config;
     }
 
-    public HugeConfig config() {
+    public HugeConfig2 config() {
         E.checkState(this.config != null,
                      "License verify manager has not been installed");
         return this.config;

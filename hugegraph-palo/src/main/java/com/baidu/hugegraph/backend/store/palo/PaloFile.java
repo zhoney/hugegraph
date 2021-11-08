@@ -31,7 +31,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 
 import com.baidu.hugegraph.backend.BackendException;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.E;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
@@ -160,12 +160,12 @@ public class PaloFile extends File {
         return rs;
     }
 
-    public static long limitSize(HugeConfig config) {
+    public static long limitSize(HugeConfig2 config) {
         long limitSize = config.get(PaloOptions.PALO_FILE_LIMIT_SIZE);
         return limitSize * 1024 * 1024;
     }
 
-    public static Set<Integer> scanSessionIds(HugeConfig config,
+    public static Set<Integer> scanSessionIds(HugeConfig2 config,
                                               List<String> tableDirs) {
         Set<Integer> sessionIds = new HashSet<>();
 

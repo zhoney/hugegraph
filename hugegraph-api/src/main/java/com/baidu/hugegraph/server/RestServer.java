@@ -40,7 +40,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.event.EventHub;
 import com.baidu.hugegraph.util.E;
@@ -51,11 +51,11 @@ public class RestServer {
 
     private static final Logger LOG = Log.logger(RestServer.class);
 
-    private final HugeConfig conf;
+    private final HugeConfig2 conf;
     private final EventHub eventHub;
     private HttpServer httpServer = null;
 
-    public RestServer(HugeConfig conf, EventHub hub) {
+    public RestServer(HugeConfig2 conf, EventHub hub) {
         this.conf = conf;
         this.eventHub = hub;
     }
@@ -194,7 +194,7 @@ public class RestServer {
         LOG.info("RestServer starting...");
         ApiVersion.check();
 
-        HugeConfig config = new HugeConfig(conf);
+        HugeConfig2 config = new HugeConfig2(conf);
         RestServer server = new RestServer(config, hub);
         server.start();
         LOG.info("RestServer started");

@@ -32,7 +32,7 @@ import org.rocksdb.RocksDBException;
 
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBSessions;
 import com.baidu.hugegraph.backend.store.rocksdb.RocksDBStdSessions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.unit.BaseUnitTest;
 import com.baidu.hugegraph.unit.FakeObjects;
 
@@ -112,7 +112,7 @@ public class BaseRocksDBUnitTest extends BaseUnitTest {
     }
 
     private static RocksDBSessions open(String table) throws RocksDBException {
-        HugeConfig config = FakeObjects.newConfig();
+        HugeConfig2 config = FakeObjects.newConfig();
         RocksDBSessions rocks = new RocksDBStdSessions(config, "db", "store",
                                                        DB_PATH, DB_PATH);
         rocks.createTable(table);

@@ -66,7 +66,7 @@ import com.baidu.hugegraph.backend.store.ram.RamTable;
 import com.baidu.hugegraph.backend.tx.GraphTransaction;
 import com.baidu.hugegraph.backend.tx.SchemaTransaction;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.TypedOption;
 import com.baidu.hugegraph.event.EventHub;
 import com.baidu.hugegraph.event.EventListener;
@@ -144,7 +144,7 @@ public class StandardHugeGraph implements HugeGraph {
 
     private final StandardHugeGraphParams params;
 
-    private final HugeConfig configuration;
+    private final HugeConfig2 configuration;
 
     private final EventHub schemaEventHub;
     private final EventHub graphEventHub;
@@ -161,7 +161,7 @@ public class StandardHugeGraph implements HugeGraph {
 
     private final RamTable ramtable;
 
-    public StandardHugeGraph(HugeConfig config) {
+    public StandardHugeGraph(HugeConfig2 config) {
         this.params = new StandardHugeGraphParams();
         this.configuration = config;
 
@@ -965,7 +965,7 @@ public class StandardHugeGraph implements HugeGraph {
     }
 
     @Override
-    public HugeConfig configuration() {
+    public HugeConfig2 configuration() {
         return this.configuration;
     }
 
@@ -991,7 +991,7 @@ public class StandardHugeGraph implements HugeGraph {
 
     @Override
     public <K, V> V option(TypedOption<K, V> option) {
-        HugeConfig config = this.configuration();
+        HugeConfig2 config = this.configuration();
         if (!ALLOWED_CONFIGS.contains(option)) {
             throw new NotAllowException("Not allowed to access config: %s",
                                         option.name());
@@ -1146,7 +1146,7 @@ public class StandardHugeGraph implements HugeGraph {
         }
 
         @Override
-        public HugeConfig configuration() {
+        public HugeConfig2 configuration() {
             return StandardHugeGraph.this.configuration();
         }
 

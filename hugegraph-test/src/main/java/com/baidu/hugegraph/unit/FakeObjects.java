@@ -22,15 +22,15 @@ package com.baidu.hugegraph.unit;
 import java.util.Collections;
 import java.util.Date;
 
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.mockito.Mockito;
 
 import com.baidu.hugegraph.HugeGraph;
 import com.baidu.hugegraph.backend.id.EdgeId;
 import com.baidu.hugegraph.backend.id.Id;
 import com.baidu.hugegraph.backend.id.IdGenerator;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.schema.EdgeLabel;
 import com.baidu.hugegraph.schema.IndexLabel;
 import com.baidu.hugegraph.schema.PropertyKey;
@@ -60,10 +60,10 @@ public final class FakeObjects {
         Mockito.doReturn(true).when(this.graph).sameAs(this.graph);
     }
 
-    public static HugeConfig newConfig() {
+    public static HugeConfig2 newConfig() {
         Configuration conf = Mockito.mock(PropertiesConfiguration.class);
         Mockito.when(conf.getKeys()).thenReturn(Collections.emptyIterator());
-        return new HugeConfig(conf);
+        return new HugeConfig2(conf);
     }
 
     public HugeGraph graph() {

@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 
 import com.baidu.hugegraph.HugeException;
 import com.baidu.hugegraph.HugeGraph;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.core.GraphManager;
 import com.baidu.hugegraph.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -84,7 +84,7 @@ public class LicenseVerifier {
         }
     }
 
-    public synchronized void install(HugeConfig config,
+    public synchronized void install(HugeConfig2 config,
                                      GraphManager graphManager,
                                      String md5) {
         this.manager.config(config);

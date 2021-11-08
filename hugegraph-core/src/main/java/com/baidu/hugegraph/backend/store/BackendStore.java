@@ -25,7 +25,7 @@ import java.util.Map;
 import com.baidu.hugegraph.backend.id.Id;
 import com.baidu.hugegraph.backend.id.IdGenerator;
 import com.baidu.hugegraph.backend.query.Query;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.E;
 
@@ -44,7 +44,7 @@ public interface BackendStore {
     public boolean isSchemaStore();
 
     // Open/close database
-    public void open(HugeConfig config);
+    public void open(HugeConfig2 config);
     public default void close() {
         this.close(false);
     }

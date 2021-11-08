@@ -20,6 +20,7 @@
 package com.baidu.hugegraph.job.computer;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
@@ -28,8 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.configuration.tree.ConfigurationNode;
-import org.apache.tinkerpop.gremlin.util.config.YamlConfiguration;
 import org.slf4j.Logger;
 
 import com.baidu.hugegraph.HugeException;
@@ -40,6 +39,8 @@ import com.baidu.hugegraph.type.define.Directions;
 import com.baidu.hugegraph.util.E;
 import com.baidu.hugegraph.util.Log;
 import com.baidu.hugegraph.util.ParameterUtil;
+
+import org.yaml.snakeyaml.Yaml;
 
 public abstract class AbstractComputer implements Computer {
 
@@ -71,7 +72,7 @@ public abstract class AbstractComputer implements Computer {
     protected static final String CATEGORY_RANK = "rank";
     protected static final String CATEGORY_COMM = "community";
 
-    private YamlConfiguration config;
+    private Map<String, Object> config;
     private Map<String, Object> commonConfig = new HashMap<>();
 
     @Override
@@ -146,8 +147,8 @@ public abstract class AbstractComputer implements Computer {
         E.checkArgument(configPath.endsWith(".yaml"),
                         "Expect a yaml config file.");
 
-        this.config = new YamlConfiguration();
-        this.config.load(configPath);
+        Yaml yaml = new Yaml();
+        this.config = yaml.load(new FileInputStream(new File(configPath)));
 
         // Read common and computer specified parameters
         this.commonConfig = this.readCommonConfig();
@@ -162,19 +163,7 @@ public abstract class AbstractComputer implements Computer {
     }
 
     private Map<String, Object> readSubConfig(String sub) {
-        List<ConfigurationNode> nodes = this.config.getRootNode()
-                                                   .getChildren(sub);
-        E.checkArgument(nodes.size() == 1,
-                        "Must contain one '%s' node in config file '%s'",
-                        sub, this.config.getFileName());
-
-        List<ConfigurationNode> subConfigs = nodes.get(0).getChildren();
-        Map<String, Object> results = new HashMap<>(subConfigs.size());
-        for (ConfigurationNode node : subConfigs) {
-            results.put(node.getName(), node.getValue());
-        }
-
-        return results;
+        return (Map) this.config.get(sub);
     }
 
     private String[] constructShellCommands(Map<String, Object> configs) {

@@ -34,7 +34,7 @@ import com.baidu.hugegraph.auth.HugeGraphAuthProxy.Context;
 import com.baidu.hugegraph.auth.SchemaDefine.AuthElement;
 import com.baidu.hugegraph.backend.id.Id;
 import com.baidu.hugegraph.backend.id.IdGenerator;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.OptionSpace;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.type.Namifiable;
@@ -64,7 +64,7 @@ public interface HugeAuthenticator extends Authenticator {
     public static final String KEY_DYNAMIC = VAR_PREFIX + "dynamic";
     public static final String KEY_ACTION = VAR_PREFIX + "action";
 
-    public void setup(HugeConfig config);
+    public void setup(HugeConfig2 config);
 
     public UserWithRole authenticate(String username, String password,
                                      String token);
@@ -78,7 +78,7 @@ public interface HugeAuthenticator extends Authenticator {
         E.checkState(path != null,
                      "Credentials configuration missing key 'tokens'");
         OptionSpace.register("tokens", ServerOptions.instance());
-        this.setup(new HugeConfig(path));
+        this.setup(new HugeConfig2(path));
     }
 
     @Override
@@ -126,7 +126,7 @@ public interface HugeAuthenticator extends Authenticator {
         }
     }
 
-    public static HugeAuthenticator loadAuthenticator(HugeConfig conf) {
+    public static HugeAuthenticator loadAuthenticator(HugeConfig2 conf) {
         String authClass = conf.get(ServerOptions.AUTHENTICATOR);
         if (authClass.isEmpty()) {
             return null;

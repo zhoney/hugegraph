@@ -27,7 +27,7 @@ import javax.crypto.SecretKey;
 import javax.ws.rs.NotAuthorizedException;
 
 import com.baidu.hugegraph.config.AuthOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -41,7 +41,7 @@ public class TokenGenerator {
 
     private final SecretKey key;
 
-    public TokenGenerator(HugeConfig config) {
+    public TokenGenerator(HugeConfig2 config) {
         String secretKey = config.get(AuthOptions.AUTH_TOKEN_SECRET);
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }

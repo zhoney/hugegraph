@@ -25,7 +25,7 @@ import com.baidu.hugegraph.backend.cache.Cache;
 import com.baidu.hugegraph.backend.cache.CacheManager;
 import com.baidu.hugegraph.backend.id.Id;
 import com.baidu.hugegraph.backend.id.IdGenerator;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.meta.MetaManager;
 import com.baidu.hugegraph.util.E;
 import com.baidu.hugegraph.util.Log;
@@ -63,7 +63,7 @@ public class StandardAuthManager implements AuthManager {
     private static final long AUTH_CACHE_CAPACITY = 1024 * 10L;
     private static final long AUTH_TOKEN_EXPIRE = 3600 * 24L;
 
-    public StandardAuthManager(MetaManager metaManager, HugeConfig conf) {
+    public StandardAuthManager(MetaManager metaManager, HugeConfig2 conf) {
         this.metaManager = metaManager;
         this.usersCache = this.cache("users", AUTH_CACHE_CAPACITY, AUTH_CACHE_EXPIRE);
         this.pwdCache = this.cache("users_pwd", AUTH_CACHE_CAPACITY, AUTH_CACHE_EXPIRE);

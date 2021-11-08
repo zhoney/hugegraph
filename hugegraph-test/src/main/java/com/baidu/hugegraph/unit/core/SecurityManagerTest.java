@@ -42,7 +42,7 @@ import com.baidu.hugegraph.HugeException;
 import com.baidu.hugegraph.HugeFactory;
 import com.baidu.hugegraph.HugeGraph;
 import com.baidu.hugegraph.backend.id.IdGenerator;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.job.GremlinJob;
 import com.baidu.hugegraph.job.JobBuilder;
 import com.baidu.hugegraph.security.HugeSecurityManager;
@@ -321,7 +321,7 @@ public class SecurityManagerTest {
     }
 
     private static HugeGraph loadGraph(boolean needClear) {
-        HugeConfig config = FakeObjects.newConfig();
+        HugeConfig2 config = FakeObjects.newConfig();
         HugeGraph graph = HugeFactory.open(config);
 
         if (needClear) {

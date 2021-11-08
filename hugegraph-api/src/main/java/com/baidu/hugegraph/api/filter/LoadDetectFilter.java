@@ -31,7 +31,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.ext.Provider;
 
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.define.WorkLoad;
 import com.baidu.hugegraph.util.Bytes;
@@ -56,7 +56,7 @@ public class LoadDetectFilter implements ContainerRequestFilter {
                          RateLimiter.create(1.0 / 30);
 
     @Context
-    private javax.inject.Provider<HugeConfig> configProvider;
+    private javax.inject.Provider<HugeConfig2> configProvider;
     @Context
     private javax.inject.Provider<WorkLoad> loadProvider;
 
@@ -66,7 +66,7 @@ public class LoadDetectFilter implements ContainerRequestFilter {
             return;
         }
 
-        HugeConfig config = this.configProvider.get();
+        HugeConfig2 config = this.configProvider.get();
 
         int maxWorkerThreads = config.get(ServerOptions.MAX_WORKER_THREADS);
         WorkLoad load = this.loadProvider.get();

@@ -37,7 +37,7 @@ import javax.ws.rs.core.UriInfo;
 
 import com.baidu.hugegraph.api.API;
 import com.baidu.hugegraph.api.filter.CompressInterceptor.Compress;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.config.ServerOptions;
 import com.baidu.hugegraph.exception.HugeGremlinException;
 import com.baidu.hugegraph.metrics.MetricsUtil;
@@ -67,7 +67,7 @@ public class GremlinAPI extends API {
     );
 
     @Context
-    private javax.inject.Provider<HugeConfig> configProvider;
+    private javax.inject.Provider<HugeConfig2> configProvider;
 
     private GremlinClient client;
 
@@ -75,7 +75,7 @@ public class GremlinAPI extends API {
         if (this.client != null) {
             return this.client;
         }
-        HugeConfig config = this.configProvider.get();
+        HugeConfig2 config = this.configProvider.get();
         String url = config.get(ServerOptions.GREMLIN_SERVER_URL);
         int timeout = config.get(ServerOptions.GREMLIN_SERVER_TIMEOUT) * 1000;
         int maxRoutes = config.get(ServerOptions.GREMLIN_SERVER_MAX_ROUTE);
@@ -88,7 +88,7 @@ public class GremlinAPI extends API {
     @Compress
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON_WITH_CHARSET)
-    public Response post(@Context HugeConfig conf,
+    public Response post(@Context HugeConfig2 conf,
                          @Context HttpHeaders headers,
                          String request) {
         /* The following code is reserved for forwarding request */
@@ -108,7 +108,7 @@ public class GremlinAPI extends API {
     @Timed
     @Compress(buffer=(1024 * 40))
     @Produces(APPLICATION_JSON_WITH_CHARSET)
-    public Response get(@Context HugeConfig conf,
+    public Response get(@Context HugeConfig2 conf,
                         @Context HttpHeaders headers,
                         @Context UriInfo uriInfo) {
         String auth = headers.getHeaderString(HttpHeaders.AUTHORIZATION);

@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 import com.baidu.hugegraph.backend.BackendException;
 import com.baidu.hugegraph.backend.store.BackendSession.AbstractBackendSession;
 import com.baidu.hugegraph.backend.store.BackendSessionPool;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.Log;
 
 public class MysqlSessions extends BackendSessionPool {
@@ -45,11 +45,11 @@ public class MysqlSessions extends BackendSessionPool {
 
     private static final int DROP_DB_TIMEOUT = 10000;
 
-    private HugeConfig config;
+    private HugeConfig2 config;
     private String database;
     private volatile boolean opened;
 
-    public MysqlSessions(HugeConfig config, String database, String store) {
+    public MysqlSessions(HugeConfig2 config, String database, String store) {
         super(config, database + "/" + store);
         this.config = config;
         this.database = database;
@@ -57,7 +57,7 @@ public class MysqlSessions extends BackendSessionPool {
     }
 
     @Override
-    public HugeConfig config() {
+    public HugeConfig2 config() {
         return this.config;
     }
 
@@ -280,7 +280,7 @@ public class MysqlSessions extends BackendSessionPool {
             this.count = 0;
         }
 
-        public HugeConfig config() {
+        public HugeConfig2 config() {
             return MysqlSessions.this.config();
         }
 

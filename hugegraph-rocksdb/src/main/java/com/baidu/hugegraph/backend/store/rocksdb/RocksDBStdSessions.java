@@ -69,7 +69,7 @@ import com.baidu.hugegraph.backend.store.BackendEntry.BackendColumn;
 import com.baidu.hugegraph.backend.store.BackendEntry.BackendColumnIterator;
 import com.baidu.hugegraph.backend.store.BackendEntryIterator;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.Bytes;
 import com.baidu.hugegraph.util.E;
 import com.baidu.hugegraph.util.Log;
@@ -80,14 +80,14 @@ public class RocksDBStdSessions extends RocksDBSessions {
 
     private static final Logger LOG = Log.logger(RocksDBStdSessions.class);
 
-    private final HugeConfig config;
+    private final HugeConfig2 config;
     private final String dataPath;
     private final String walPath;
 
     private volatile OpenedRocksDB rocksdb;
     private final AtomicInteger refCount;
 
-    public RocksDBStdSessions(HugeConfig config, String database, String store,
+    public RocksDBStdSessions(HugeConfig2 config, String database, String store,
                               String dataPath, String walPath)
                               throws RocksDBException {
         super(config, database, store);
@@ -99,7 +99,7 @@ public class RocksDBStdSessions extends RocksDBSessions {
         this.refCount = new AtomicInteger(1);
     }
 
-    public RocksDBStdSessions(HugeConfig config, String database, String store,
+    public RocksDBStdSessions(HugeConfig2 config, String database, String store,
                               String dataPath, String walPath,
                               List<String> cfNames) throws RocksDBException {
         super(config, database, store);
@@ -113,8 +113,8 @@ public class RocksDBStdSessions extends RocksDBSessions {
         this.ingestExternalFile();
     }
 
-    private RocksDBStdSessions(HugeConfig config, String database, String store,
-                               RocksDBStdSessions origin) {
+    private RocksDBStdSessions(HugeConfig2 config, String database,
+                               String store, RocksDBStdSessions origin) {
         super(config, database, store);
         this.config = config;
         this.dataPath = origin.dataPath;
@@ -270,7 +270,7 @@ public class RocksDBStdSessions extends RocksDBSessions {
     }
 
     @Override
-    public RocksDBSessions copy(HugeConfig config,
+    public RocksDBSessions copy(HugeConfig2 config,
                                 String database, String store) {
         return new RocksDBStdSessions(config, database, store, this);
     }
@@ -396,7 +396,7 @@ public class RocksDBStdSessions extends RocksDBSessions {
         }
     }
 
-    private static OpenedRocksDB openRocksDB(HugeConfig config,
+    private static OpenedRocksDB openRocksDB(HugeConfig2 config,
                                              String dataPath, String walPath)
                                              throws RocksDBException {
         // Init options
@@ -415,7 +415,7 @@ public class RocksDBStdSessions extends RocksDBSessions {
         return new OpenedRocksDB(rocksdb, cfs, sstFileManager);
     }
 
-    private static OpenedRocksDB openRocksDB(HugeConfig config,
+    private static OpenedRocksDB openRocksDB(HugeConfig2 config,
                                              List<String> cfNames,
                                              String dataPath, String walPath)
                                              throws RocksDBException {
@@ -503,7 +503,7 @@ public class RocksDBStdSessions extends RocksDBSessions {
         return cfs;
     }
 
-    public static void initOptions(HugeConfig conf,
+    public static void initOptions(HugeConfig2 conf,
                                    DBOptionsInterface<?> db,
                                    MutableDBOptionsInterface<?> mdb,
                                    ColumnFamilyOptionsInterface<?> cf,
@@ -806,7 +806,7 @@ public class RocksDBStdSessions extends RocksDBSessions {
         private WriteBatch batch;
         private WriteOptions writeOptions;
 
-        public StdSession(HugeConfig conf) {
+        public StdSession(HugeConfig2 conf) {
             boolean raftMode = conf.get(CoreOptions.RAFT_MODE);
             this.batch = new WriteBatch();
             this.writeOptions = new WriteOptions();

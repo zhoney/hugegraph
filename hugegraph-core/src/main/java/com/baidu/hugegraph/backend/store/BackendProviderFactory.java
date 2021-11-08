@@ -29,7 +29,7 @@ import com.baidu.hugegraph.backend.BackendException;
 import com.baidu.hugegraph.backend.store.memory.InMemoryDBStoreProvider;
 import com.baidu.hugegraph.backend.store.raft.RaftBackendStoreProvider;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.util.Log;
 
 public class BackendProviderFactory {
@@ -43,7 +43,7 @@ public class BackendProviderFactory {
     }
 
     public static BackendStoreProvider open(HugeGraphParams params) {
-        HugeConfig config = params.configuration();
+        HugeConfig2 config = params.configuration();
         String backend = config.get(CoreOptions.BACKEND).toLowerCase();
         String graph = config.get(CoreOptions.STORE);
         boolean raftMode = config.get(CoreOptions.RAFT_MODE);
@@ -58,7 +58,7 @@ public class BackendProviderFactory {
         return provider;
     }
 
-    private static BackendStoreProvider newProvider(HugeConfig config) {
+    private static BackendStoreProvider newProvider(HugeConfig2 config) {
         String backend = config.get(CoreOptions.BACKEND).toLowerCase();
         String graph = config.get(CoreOptions.STORE);
 

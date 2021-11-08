@@ -28,7 +28,7 @@ import com.baidu.hugegraph.HugeException;
 import com.baidu.hugegraph.HugeGraph;
 import com.baidu.hugegraph.HugeGraphParams;
 import com.baidu.hugegraph.config.CoreOptions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.structure.HugeVertex;
 import com.baidu.hugegraph.util.E;
 import com.baidu.hugegraph.util.Log;
@@ -50,7 +50,7 @@ public class SnowflakeIdGenerator extends IdGenerator {
         if (generator == null) {
             synchronized (INSTANCES) {
                 if (!INSTANCES.containsKey(graphName)) {
-                    HugeConfig conf = graph.configuration();
+                    HugeConfig2 conf = graph.configuration();
                     INSTANCES.put(graphName, new SnowflakeIdGenerator(conf));
                 }
                 generator = INSTANCES.get(graphName);
@@ -69,7 +69,7 @@ public class SnowflakeIdGenerator extends IdGenerator {
         return generator;
     }
 
-    private SnowflakeIdGenerator(HugeConfig config) {
+    private SnowflakeIdGenerator(HugeConfig2 config) {
         long workerId = config.get(CoreOptions.SNOWFLAKE_WORKER_ID);
         long datacenterId = config.get(CoreOptions.SNOWFLAKE_DATACENTER_ID);
         this.forceString = config.get(CoreOptions.SNOWFLAKE_FORCE_STRING);

@@ -44,7 +44,7 @@ import com.baidu.hugegraph.backend.store.BackendFeatures;
 import com.baidu.hugegraph.backend.store.BackendMutation;
 import com.baidu.hugegraph.backend.store.BackendStoreProvider;
 import com.baidu.hugegraph.backend.store.hbase.HbaseSessions.Session;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.exception.ConnectionException;
 import com.baidu.hugegraph.type.HugeType;
 import com.baidu.hugegraph.util.E;
@@ -139,7 +139,7 @@ public abstract class HbaseStore extends AbstractBackendStore<Session> {
     }
 
     @Override
-    public synchronized void open(HugeConfig config) {
+    public synchronized void open(HugeConfig2 config) {
         E.checkNotNull(config, "config");
 
         if (this.sessions == null) {

@@ -429,9 +429,6 @@ public abstract class HugeElement implements Element, GraphType, Idfiable {
                 throw Element.Exceptions
                       .providedKeyValuesMustHaveALegalKeyOnEvenIndices();
             }
-            if (val == null) {
-                throw Property.Exceptions.propertyValueCanNotBeNull();
-            }
 
             if (key.equals(T.id)) {
                 elemKeys.id = val;

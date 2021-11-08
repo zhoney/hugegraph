@@ -22,7 +22,6 @@ package com.baidu.hugegraph.backend.store.palo;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +40,7 @@ import org.slf4j.Logger;
 
 import com.baidu.hugegraph.backend.BackendException;
 import com.baidu.hugegraph.backend.store.mysql.MysqlSessions;
-import com.baidu.hugegraph.config.HugeConfig;
+import com.baidu.hugegraph.config.HugeConfig2;
 import com.baidu.hugegraph.date.SafeDateFormat;
 import com.baidu.hugegraph.util.Log;
 import com.google.common.collect.LinkedListMultimap;
@@ -57,7 +56,7 @@ public class PaloSessions extends MysqlSessions {
     private final Timer timer;
     private final PaloLoadTask loadTask;
 
-    public PaloSessions(HugeConfig config, String database, String store,
+    public PaloSessions(HugeConfig2 config, String database, String store,
                         List<String> tableDirs) {
         super(config, database, store);
         this.counter = new AtomicInteger();
@@ -71,7 +70,8 @@ public class PaloSessions extends MysqlSessions {
         this.timer.schedule(this.loadTask, 0, interval * 1000);
     }
 
-    private void restoreSessionInfo(HugeConfig config, List<String> tableDirs) {
+    private void restoreSessionInfo(HugeConfig2 config,
+                                    List<String> tableDirs) {
         Set<Integer> sessionIds = PaloFile.scanSessionIds(config, tableDirs);
         for (Integer sessionId : sessionIds) {
             if (!this.locks.containsKey(sessionId)) {
